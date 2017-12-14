@@ -38,6 +38,23 @@ class CategoriesViewController: UIViewController, UITableViewDataSource, UITable
         return CategoryCell()
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "AppsDisplaySegue", sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AppsDisplaySegue" {
+            guard let viewController = segue.destination as? AppsDisplayVC else {return}
+            
+            let barButton = UIBarButtonItem()
+            barButton.title = ""
+            navigationItem.backBarButtonItem = barButton
+            navigationItem.backBarButtonItem?.tintColor = UIColor.white
+            
+            viewController.indexSelected = sender as? IndexPath
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
